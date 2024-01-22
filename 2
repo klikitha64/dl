@@ -1,0 +1,61 @@
+#2
+def output1(a,b):
+    if(a):
+        if(not b):
+            return 1
+        else:
+            return 0
+    elif ( b):
+        if (not a):
+            return 1
+        else:
+            return 0
+    else :
+        return 0
+def output2(a,b):
+    if ((not a and b)or(not b and a )):
+        return 1
+    else :
+        return 0
+input_values = [(0,0),(0,1),(1,0),(1,1)]
+outputs1=[]
+outputs2=[]
+for a,b in input_values :
+    outputs1.append(output1(a,b))
+    outputs2.append(output2(a,b))
+print(outputs1,outputs2)
+input_values = [(0,0),(0,1),(1,0),(1,1)]
+class Mcclochpittsneuron:
+    def __init__ (self,weights,treshold):
+        self.weights=weights
+        self.threshold=treshold
+    def activate (self,inputs):
+        weight_sum = sum([inputs[i]*self.weights[i] for i in range(len(inputs))])
+        return 1 if weight_sum >= self.threshold else 0
+nand_weights = [-1,-1]
+nand_treshold = -1
+nand_neuron = Mcclochpittsneuron(nand_weights,nand_treshold)
+or_weights=[1,1]
+or_treshold=1
+or_neuron = Mcclochpittsneuron(or_weights,or_treshold)
+and_not_weights = [1,-1]
+and_not_treshold = 1
+and_not_neuron = Mcclochpittsneuron(and_not_weights,and_not_treshold)
+xor_weights=[1,1]
+xor_treshold =2
+xor_neuron =Mcclochpittsneuron(xor_weights,xor_treshold)
+
+and_not_output= []
+for i in input_values :
+    and_not_output.append(and_not_neuron.activate(i))
+print(f"inputs : {input_values}, outputs = {and_not_output}")
+nand_output= []
+for i in input_values :
+    nand_output.append(nand_neuron.activate(i))
+or_output= []
+for i in input_values :
+    or_output.append(or_neuron.activate(i))
+xor_output =[]
+for i,j in zip(nand_output,or_output) :
+    xor_output.append(xor_neuron.activate((i,j)))
+print(f"inputs : {input_values}, outputs = {xor_output}")
